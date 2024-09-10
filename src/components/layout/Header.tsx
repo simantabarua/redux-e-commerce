@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { CartItem } from "../../redux/features/cart/cartSlice";
 import {
   FiChevronRight,
   FiHeart,
@@ -11,19 +9,14 @@ import {
 } from "react-icons/fi";
 import { SiRedux } from "react-icons/si";
 import { HiBars3CenterLeft } from "react-icons/hi2";
+import { useCart } from "../../hooks/useCart";
 
 export default function Header() {
   const [searchInput, setSearchInput] = useState(true);
   const [mdOptionsToggle, setMdOptionsToggle] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  interface CartState {
-    cart: {
-      items: CartItem[];
-    };
-  }
-
-  const cart = useSelector((state: CartState) => state.cart.items);
+  const cart = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,15 +66,16 @@ export default function Header() {
               >
                 <FiHeart size={20} />
               </button>
-              <button
+              <Link
+                to={"shopping-cart"}
                 aria-label="go to cart"
                 className="relative text-gray-800 dark:hover:text-gray-300 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800"
               >
-                <span className="absolute -top-3 left-3 inline-block bg-red-500 h-6 aspect-square rounded-full ">
+                <span className="absolute text-center -top-3 left-3 inline-block bg-red-500 h-6 aspect-square rounded-full ">
                   {cart.length}
                 </span>
                 <FiShoppingBag className="fill-stroke" size={24} />
-              </button>
+              </Link>
             </div>
           </div>
           {/* For md screen size */}
@@ -140,15 +134,16 @@ export default function Header() {
                     <FiHeart className="fill-stroke" size={24} />
                   </button>
                   {/* add to cart */}
-                  <button
+                  <Link
+                    to={"shopping-cart"}
                     aria-label="go to cart"
                     className="relative text-gray-800 dark:hover:text-gray-300 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800"
                   >
-                    <span className="absolute -top-3 left-3 inline-block bg-red-500 h-6 aspect-square rounded-full ">
+                    <span className="absolute text-center -top-3 left-3 inline-block bg-red-500 h-6 aspect-square rounded-full ">
                       {cart.length}
                     </span>
                     <FiShoppingBag className="fill-stroke" size={24} />
-                  </button>
+                  </Link>
                 </div>
                 <div className="flex lg:hidden">
                   <button

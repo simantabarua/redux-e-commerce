@@ -12,8 +12,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     const cartItem: CartItem = {
-      id: product.id,
-      title: product.title,
+      ...product,
       quantity: 1,
     };
     dispatch(addToCart(cartItem));

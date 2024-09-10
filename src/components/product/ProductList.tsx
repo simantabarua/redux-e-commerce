@@ -11,16 +11,15 @@ export interface Product {
 }
 
 export default function ProductList() {
-  // Set the type of products as an array of Product
   const [products, setProducts] = useState<Product[]>([]);
-
   useEffect(() => {
     const fetchProduct = async () => {
+      const url = "https://fakestoreapi.in/api/products";
       try {
-        const req = await fetch("https://fakestoreapi.com/products");
+        const req = await fetch(url);
         const res = await req.json();
-        setProducts(res);
-        console.log(res);
+        setProducts(res.products);
+        console.log("product", res);
       } catch (error) {
         console.log(error);
       }
